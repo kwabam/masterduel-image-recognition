@@ -1,0 +1,6 @@
+cardDatabase*
+eval*
+models
+.idea
+__pycache__/
+cardinfo.php
