@@ -7,6 +7,7 @@ from slugify import slugify
 
 base_url = './cardDatabase/yugioh'
 
+
 class Card:
     def __init__(self, card_data):
         self.name = card_data['name']
@@ -20,7 +21,7 @@ class Card:
             if not os.path.exists(f'{save_directory}/{self.id}.png'):
                 res = requests.get(self.image_url, stream=True)
                 res.raise_for_status()
-                sleep(.5)
+                sleep(1) # avoid throttling
                 if not os.path.exists(save_directory):
                     os.makedirs(save_directory)
                 with open(f'{save_directory}/{self.id}.png', 'wb') as save_file:
@@ -36,9 +37,19 @@ class Card:
         return f'Name: {self.name}, ID: {self.id}, URL: {self.image_url}'
 
 if __name__ == '__main__':
-    # copy cards.php from: https://db.ygoprodeck.com/api/v7/cardinfo.php
-    with open('./cardinfo.php') as f:
-        cards_json = json.load(f)['data']
+    # Check if the cardinfo.php file exists
+    if os.path.exists('cardinfo.php'):
+        with open('cardinfo.php', 'r') as f:
+            cards_json = json.load(f)['data']
+    else:
+        # Fetch card data from the URL
+        response = requests.get('https://db.ygoprodeck.com/api/v7/cardinfo.php')
+        card_data = response.json()
+        cards_json = card_data['data']
+
+        # Save the fetched card data to the cardinfo.php file
+        with open('cardinfo.php', 'w') as f:
+            json.dump(card_data, f)
 
     cards = [Card(card_data) for card_data in cards_json]
     for card in cards:

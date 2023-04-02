@@ -29,8 +29,6 @@ def encode_ydke(passcodes):
 
 
 if __name__ == '__main__':
-    with open('./cards.php') as f: #copy cards.json from: https://db.ygoprodeck.com/api/v7/cardinfo.php
-        cards_json = json.load(f)['data']
     passcodes = [44256816, 44256816, 44256816]
     ydke = get_ydke(TypedDeck(main=passcodes))
 
