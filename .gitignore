@@ -1,5 +1,5 @@
 cardDatabase*
-eval*
+eval*/
 models
 .idea
 __pycache__/
