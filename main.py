@@ -1,11 +1,9 @@
+from constants import TRAIN_PATH, EVAL_PATH
 from oneShotLearning import *
 
 if __name__ == '__main__':
-    train_folder = "./cardDatabase"
-    eval_folder = "./evalSimilar"
-
-    images_train, classes_train, lang_dict_train = loadimgs(train_folder)
-    images_eval, classes_eval, lang_dict_eval = loadimgs(eval_folder)
+    images_train, classes_train, lang_dict_train = loadimgs(TRAIN_PATH)
+    images_eval, classes_eval, lang_dict_eval = loadimgs(EVAL_PATH)
     print(images_train.shape)
     print(images_eval.shape)
 
@@ -25,6 +23,3 @@ if __name__ == '__main__':
     model.compile(loss="binary_crossentropy", optimizer=adam_optimizer)
 
     model = train_model(model, images_train, images_eval)
-
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/

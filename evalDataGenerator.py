@@ -3,6 +3,8 @@ import numpy as np
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, img_to_array, array_to_img
 from PIL import Image
 
+from constants import TRAIN_PATH, EVAL_PATH
+
 
 def create_eval_data(train_folder, eval_folder, num_augmented_images=5):
     if not os.path.exists(eval_folder):
@@ -34,19 +36,9 @@ def create_eval_data(train_folder, eval_folder, num_augmented_images=5):
                             break
 
 
-# Set the paths
-test = False  # Set this flag to True when you want to use the test paths
-
-if test:
-    train_path = r"./cardDatabaseTest"
-    eval_path = r"./evalTest"
-else:
-    train_path = r"./cardDatabase"
-    eval_path = r"./evalSimilar"
-
-os.makedirs(eval_path, exist_ok=True)
+os.makedirs(EVAL_PATH, exist_ok=True)
 
 # Define the number of augmented images per card
-num_augmented_images = 3
+num_augmented_images = 10
 
-create_eval_data(train_path, eval_path, num_augmented_images)
+create_eval_data(TRAIN_PATH, EVAL_PATH, num_augmented_images)
